@@ -1,3 +1,8 @@
 ldm/__pycache__/util.cpython-311.pyc
 *.pyc
 *.pth
+*.pth
+*.zip
+models/first_stage_models/vq-f4/model.ckpt
+logs/2024-11-05T02-00-11_lsun_bedrooms-ldm-vq-4/checkpoints/last.ckpt
+data/lsun/bedrooms

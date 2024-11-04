@@ -213,6 +213,31 @@ class DDPM(pl.LightningModule):
         log_variance = extract_into_tensor(self.log_one_minus_alphas_cumprod, t, x_start.shape)
         return mean, variance, log_variance
 
+    def disenangle_mean_variance(self, x_start, t):
+        """
+        Get the disentangle latent distribution q(x_t | x_0)
+        """
+        perturbed_samples = x_steps.clone().reshape(
+            x_steps.shape[0], x_steps.shape[1] * x_steps.shape[2] * x_steps.shape[3]
+        ).permute(1, 0)
+        
+        for i in range(t):
+            perturbed_samples.requires_grad_(True)
+            # calculate coeficiency 
+            corr = torch.sum(torch.abs(torch.triu(torch.corrcoef(perturbed_samples), diagonal=1)))
+            corr.backward()
+            grad = perturbed_samples.grad
+            perturbed_samples.requires_grad_(False)
+            
+            # final perturbed_samples
+            perturbed_samples = perturbed_samples - grad * 0.01 + torch.randn_like(perturbed_samples) * sigmas[i]
+
+            # calculate mean and variance
+            mean = perturbed_samples.mean()
+            variance = perturbed_samples.std()
+        
+        return mean, variance
+
     def predict_start_from_noise(self, x_t, t, noise):
         return (
                 extract_into_tensor(self.sqrt_recip_alphas_cumprod, t, x_t.shape) * x_t -

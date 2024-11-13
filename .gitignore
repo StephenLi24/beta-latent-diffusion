@@ -1,3 +1,4 @@
-ldm/__pycache__/util.cpython-311.pyc
 *.pyc
 *.pth
+models/first_stage_models/*
+latent_diffusion.egg-info/*

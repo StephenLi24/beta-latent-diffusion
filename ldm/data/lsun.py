@@ -72,12 +72,12 @@ class LSUNChurchesValidation(LSUNBase):
 
 class LSUNBedroomsTrain(LSUNBase):
     def __init__(self, **kwargs):
-        super().__init__(txt_file="data/lsun/bedrooms_train.txt", data_root="data/lsun/bedrooms", **kwargs)
+        super().__init__(txt_file="data/lsun/bedrooms_train.txt", data_root="/home/llb/data/lsun_bedrooms_train", **kwargs)
 
 
 class LSUNBedroomsValidation(LSUNBase):
     def __init__(self, flip_p=0.0, **kwargs):
-        super().__init__(txt_file="data/lsun/bedrooms_val.txt", data_root="data/lsun/bedrooms",
+        super().__init__(txt_file="data/lsun/bedrooms_val.txt", data_root="/home/llb/data/lsun_bedrooms_val",
                          flip_p=flip_p, **kwargs)
 
 

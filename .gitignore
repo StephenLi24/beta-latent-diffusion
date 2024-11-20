@@ -2,3 +2,8 @@
 *.pth
 models/first_stage_models/*
 latent_diffusion.egg-info/*
+src/*
+logs/*
+data/lsun/bedrooms_val.txt
+data/*
+src/taming-transformers
